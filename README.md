@@ -26,8 +26,6 @@ flowchart TB
     web -->|"MySQL 3306"| rds
 ```
 
-A more detailed diagram, including availability zones and route behaviour, is in [docs/architecture.md](docs/architecture.md).
-
 ## The three tiers
 
 | Tier | AWS service | Where it runs | Reachable from |
@@ -99,22 +97,7 @@ Delete in this order, because AWS refuses to delete resources that are in use:
 
 Stopping RDS is not a real pause, because AWS starts it again after 7 days. Delete it instead.
 
-## Repository layout
-
-```
-.
-├── README.md
-├── docs/
-│   └── architecture.md        Detailed architecture diagram
-├── lambda/                    Serverless notes API code (Lambda)
-├── site/                      Static web page for the notes API
-└── .github/workflows/         GitHub Actions deploy workflow (OIDC)
-```
-
-The `lambda/`, `site/` and workflow files belong to a separate serverless notes API (API Gateway, Lambda, DynamoDB and Cognito) built in the same repository.
-
 ## Security notes
 
 - Never commit passwords, access keys, tokens, database endpoints or account IDs.
-- GitHub Actions authenticates to AWS with OIDC, so there are no long-lived access keys.
 - Keep MFA on the root user and on the admin IAM user.
